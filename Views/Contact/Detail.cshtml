@@ -1,0 +1,35 @@
+@model webtintuc.Models.ContactModel
+@{
+    ViewData["Title"]="Chi tiết liên hệ" ;
+}
+<h1> Thông tin liên hệ</h1>
+
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+    </dl>
+</div>
+  <hr />
+<div>
+    <a asp-action="Delete" asp-route-id="@Model?.ID">Xóa</a> |
+    <a asp-action="Index">Quay lại danh sách liên hệ</a>
+</div>

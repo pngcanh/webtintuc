@@ -1,0 +1,25 @@
+@model webtintuc.Models.NewsModel
+
+@{
+    ViewData["Title"] = "Xóa bài viết";
+}
+
+<h1>Xóa bài viết</h1>
+
+<h3>Bạn có chắc muốn xóa bài viết</h3>
+
+
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
+    
+    <p><i>@Html.DisplayFor(model => model.Created)</i></p>
+    <hr />
+    @Html.DisplayFor(model => model.Content)
+    <hr />
+    <h3>Bạn có chắc muốn xóa bài viết</h3>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="NewsID" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> 
+        <br>
+        <a asp-action="Index">Quay lại danh sách bài viết</a>
+    </form>
+</div>

@@ -1,0 +1,9 @@
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService
+@{
+    var resultAuthorize = await authorizationService.AuthorizeAsync(this.User, "ShowAdminNavbar");
+}
+@if (resultAuthorize.Succeeded)
+{
+    <partial name="_layout"></partial>
+}

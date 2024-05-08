@@ -1,0 +1,27 @@
+@model webtintuc.User.Models.AddRoleForUserModel
+@{
+    ViewData["Title"]="Gán role cho người dùng";
+}
+<partial name="_StatusMessage" ></partial>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <form   asp-action="AddRole" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> 
+
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                @Html.ListBoxFor(m => m.RoleName, (IEnumerable<SelectListItem>)ViewBag.allRoles, new {
+                        id = "id-select-roles",
+                        @class = "w-100"
+                         })
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-action="Index">Danh sách người dùng</a>
+            </div>
+        </form>
+    </div>
+</div>

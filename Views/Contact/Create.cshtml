@@ -1,0 +1,41 @@
+@model webtintuc.Models.ContactModel
+@{
+    ViewData["Title"]="Liên hệ";
+}
+<h1>LIÊN HỆ VỚI CHÚNG TÔI</h1>
+<div class="row">
+    <div class="col-md-8">
+            <h2> Chúng tôi luôn lắng nghe ý  kiến của bạn </h2>
+    </div>
+    @* lien he: *@
+    <div class="col-md-8">
+    <h4>LIÊN HỆ VỚI CHÚNG TÔI</h4>
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <textarea rows="3" asp-for="Title" class="form-control"  > </textarea>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea rows="5" asp-for="Content" class="form-control"  > </textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Gửi thông tin" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
