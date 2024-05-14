@@ -53,10 +53,12 @@ services.Configure<MailSettings>(mailSetting);
 services.AddTransient<IEmailSender, SendMailService>();
 services.AddAuthorization(option =>
 {
-    option.AddPolicy("ShowAdminNavbar", policyBuider =>
-        policyBuider.RequireRole("Admin"));
-}
-);
+    option.AddPolicy("AdminCP", policyBuider =>
+    {
+        policyBuider.RequireRole("Admin");
+        policyBuider.RequireAuthenticatedUser();
+    });
+});
 
 /*------------------------------------------------------------*/
 
@@ -81,6 +83,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=AdminCP}/{action=Index}/{id?}");
 
 app.Run();

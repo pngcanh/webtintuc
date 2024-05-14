@@ -5,10 +5,10 @@ namespace webtintuc.Account.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "Vui lòng điền {0}")]
-        [Display(Name = "Tên đăng nhập")]
+        [Display(Name = "Tên đăng nhập", Prompt = "Tên đăng nhập")]
 
         public string? UserName { set; get; }
-        [Display(Name = "Mật khẩu")]
+        [Display(Name = "Mật khẩu", Prompt = "Mật khẩu")]
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
         [DataType(DataType.Password)]
 
