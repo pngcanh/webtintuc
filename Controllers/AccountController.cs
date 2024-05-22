@@ -48,14 +48,15 @@ namespace webtintuc.Controllers
                 if (result.Succeeded)
                 {
                     var user = await userManager.FindByNameAsync(login.UserName!);
-                    if (await userManager.IsInRoleAsync(user!, "Admin"))
+                    if (await userManager.IsInRoleAsync(user!, "admin"))
                     {
                         return RedirectToAction("Index", "AdminCP");
                     }
-                    else
-                    {
-                        return NotFound("Không đủ quyền truy cập!");
-                    }
+                    return RedirectToAction("Index", "NewsView");
+                    // else
+                    // {
+                    //     return NotFound("Không đủ quyền truy cập!");
+                    // }
                 }
                 ModelState.AddModelError("", "Đăng nhập thất bại!");
             }
@@ -263,6 +264,8 @@ namespace webtintuc.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login");
+            // return View();
+
         }
 
     }

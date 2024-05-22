@@ -19,8 +19,6 @@ namespace webtintuc.Models
         [Display(Name = "Địa chỉ Email")]
         [Required(ErrorMessage = "Vui lòng điền {0}")]
         [EmailAddress]
-        [Column(TypeName = "varchar")]
-
         public string Email { get; set; }
 
         [Display(Name = "Tiêu đề")]

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using webtintuc.Models;
 
 namespace webtintuc.Models
 {
@@ -11,6 +12,7 @@ namespace webtintuc.Models
         public DbSet<CategoryModel> category { set; get; }
         public DbSet<ContactModel> contact { set; get; }
         public DbSet<CommentModel> comment { set; get; }
+        public DbSet<PartnerModel> partner { set; get; }
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
             //

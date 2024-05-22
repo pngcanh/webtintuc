@@ -265,9 +265,11 @@ namespace webtintuc.Migrations
                         .HasColumnType("nvarchar");
 
                     b.Property<string>("Descriptions")
-                        .IsRequired()
-                        .HasMaxLength(300)
                         .HasColumnType("ntext");
+
+                    b.Property<string>("Slug")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar");
 
                     b.HasKey("CategoryID");
 
@@ -311,7 +313,7 @@ namespace webtintuc.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -349,14 +351,21 @@ namespace webtintuc.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("DateTime");
 
-                    b.Property<string>("Slug")
+                    b.Property<string>("Photo")
                         .IsRequired()
-                        .HasColumnType("ntext");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Slug")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar");
+                        .HasColumnType("ntext");
+
+                    b.Property<int>("ViewNumber")
+                        .HasColumnType("int");
 
                     b.HasKey("NewsID");
 
@@ -365,6 +374,29 @@ namespace webtintuc.Migrations
                     b.HasIndex("CategoryID");
 
                     b.ToTable("news");
+                });
+
+            modelBuilder.Entity("webtintuc.Models.PartnerModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("partner");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

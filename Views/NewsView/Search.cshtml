@@ -1,0 +1,39 @@
+@model List<NewsModel>
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+    var resultNumber = ViewBag.ResultNumber;
+}
+@if (resultNumber <= 0)
+{
+    <h5 style="text-align:center;">Không tìm thấy kết quả phù hợp</h5>
+    <hr>
+}
+<div>
+    <h6 style="padding: 20px; color:rgb(73, 72, 72)">Tìm thấy @resultNumber kết quả phù hợp</h6>
+    <hr>
+    <ul>
+        @foreach (var news in Model)
+        {
+            <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                <div class="media border-bottom mb-3 pb-3">
+                    <img class="mr-3 w-25" src="@news.Photo">
+                    <div class="media-body">
+                        <h5 class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                                asp-controller="NewsView" asp-route-slug="@news.Slug">@news.Title</a>
+                        </h5>
+                        @news.Content.Substring(300, 400);
+                    </div>
+                    <div style="text-align: right;font-style: italic;
+    color: rgb(128, 126, 126);">
+                        <i> @String.Format("{0:dd/MM/yyyy}", news.Created)</i>
+                    </div>
+                </div>
+            </a>
+        }
+    </ul>
+</div>
+@section Sidebar {
+    @await Component.InvokeAsync("TopNewsSidebar")
+    @await Component.InvokeAsync("SocialSidebar")
+
+}

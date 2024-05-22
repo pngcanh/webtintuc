@@ -1,10 +1,10 @@
 @model webtintuc.Models.CategoryModel
 
 @{
-    ViewData["Title"] = "Chỉnh sửa  thông tin thể loại";
+    ViewData["Title"] = "Chỉnh sửa thông tin thể loại";
 }
 
-<h1>Chỉnh sửa  thông tin thể loại</h1>
+<h1>Chỉnh sửa thông tin thể loại</h1>
 
 <hr />
 <div class="row">
@@ -16,6 +16,11 @@
                 <label asp-for="CategoryName" class="control-label"></label>
                 <input asp-for="CategoryName" class="form-control" />
                 <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slug" class="control-label"></label>
+                <input asp-for="Slug" class="form-control" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descriptions" class="control-label"></label>

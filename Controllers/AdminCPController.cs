@@ -6,6 +6,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace webtintuc.Controllers;
 public class AdminCPController : Controller
 {
-    [Authorize(Roles = "Admin")]
+
+    [Authorize(Roles = "admin")]
+    // [Route("AdminControll")]
     public IActionResult Index() => View();
 }

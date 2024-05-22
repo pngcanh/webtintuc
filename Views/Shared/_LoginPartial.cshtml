@@ -3,7 +3,8 @@
 <ul class="navbar-nav">
     @if (signInManager.IsSignedIn(User))
     {
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" style="display: flex;">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Create">Liên hệ</a>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Xin chào @User.Identity.Name
@@ -11,14 +12,18 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                     <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Đăng xuất</a>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Cài đặt</a>
+
                 </li>
             </ul>
         </li>
     }
     else
     {
-        <li class="nav-item">
+        <li class="nav-item" style="display: flex;">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Create">Liên hệ</a>
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+
         </li>
     }
 </ul>

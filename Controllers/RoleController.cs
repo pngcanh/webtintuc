@@ -8,7 +8,7 @@ using webtintuc.Role.Models;
 
 namespace webtintuc.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -62,7 +62,7 @@ namespace webtintuc.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            if (id != null) return NotFound("Không tìm thấy role");
+            if (id == null) return NotFound("Không tìm thấy role");
             var role = await _roleManager.FindByIdAsync(id);
             if (role == null)
             {
@@ -96,7 +96,7 @@ namespace webtintuc.Controllers
         {
             if (id == null) return NotFound("Không tìm thấy role");
             var role = await _roleManager.FindByIdAsync(id);
-            if (role != null)
+            if (role == null)
             {
                 return NotFound("Role không tồn tại");
             }

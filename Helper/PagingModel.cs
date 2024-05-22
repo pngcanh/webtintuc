@@ -1,4 +1,4 @@
-namespace webtintuc.Models
+namespace webtintuc.Helper
 {
     public class PagingModel
     {

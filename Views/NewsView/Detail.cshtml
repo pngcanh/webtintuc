@@ -1,0 +1,53 @@
+@model webtintuc.Models.NewsModel
+@{
+    ViewData["Title"] = Model.Title;
+    IQueryable<NewsModel> ortherNews = ViewBag.ortherNews as IQueryable<NewsModel>;
+}
+<div class="NewsDetail">
+    <h4>@Model.CategoryModel.CategoryName</h4>
+    <hr>
+    <h2>@Model.Title</h2>
+    <div><i class="fa-regular fa-clock"></i><i>@String.Format("{0:dd/MM/yyyy}", Model.Created)</i></div>
+    <div>
+        @Html.Raw(Model.Content)
+    </div>
+    <div style="text-align: right;font-style:italic;color:rgb(128, 126, 126)">
+        <i>Lượt xem: @Model.ViewNumber | </i><strong>Thực hiện: @Model.AuthorModel.AuthorName</strong>
+    </div>
+</div>
+<div>
+    <h4>Tin khác cùng chuyên mục</h4>
+    <hr>
+    <div>
+        <ul>
+            @foreach (var news in ortherNews)
+            {
+                <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                    <div class="media border-bottom mb-3 pb-3">
+                        <img class="mr-3 w-25" src="@news.Photo">
+                        <div class="media-body">
+                            <h5 class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                                    asp-controller="NewsView" asp-route-slug="@news.Slug">@news.Title</a>
+                            </h5>
+                            @news.Content.Substring(300, 400);
+                        </div>
+                        <div style="text-align: right;
+    font-style: italic;
+    color: rgb(128, 126, 126);">
+                            <i> @String.Format("{0:dd/MM/yyyy}", news.Created)</i>
+                        </div>
+                    </div>
+                </a>
+            }
+        </ul>
+        <div>
+            <p style="text-align: center;">
+                <a asp-controller="NewsView" asp-action="Index" asp-route-slugCate="@Model.CategoryModel.Slug"
+                    class="btn btn-primary ">Xem thêm</a>
+            </p>
+        </div>
+    </div>
+</div>
+@section Sidebar {
+    @await Component.InvokeAsync("TopNewsSidebar")
+}

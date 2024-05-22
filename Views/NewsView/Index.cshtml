@@ -1,0 +1,186 @@
+@model List<NewsModel>
+@{
+    List<CategoryModel> categories = ViewBag.categories as List<CategoryModel>;
+    CategoryModel category = ViewBag.category as CategoryModel;
+    ViewData["Title"] = category == null ? "Trang chủ" : category.CategoryName;
+    var topView = ViewBag.topView;
+    var newsInPage = ViewBag.newsInPage;
+    var newsLately = ViewBag.newsLately;
+    var topviewByCate = ViewBag.topviewByCate;
+    var newsLatelyByCate = ViewBag.newsLatelyByCate;
+    var partner = ViewBag.partner;
+    var secondNews = Model.Skip(1).Take(3).ToList();
+}
+@if (ViewData["Title"] == "Trang chủ")
+{
+
+    <partial name="_StatusMessage"></partial>
+    <h2>SỰ KIỆN</h2>
+    <hr>
+    <div>
+        <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@newsLately.Slug">
+            <div class="media  mb-3 pb-3">
+                <img style="width:100%; height:500px" class=" h-30" src="@newsLately.Photo">
+                <div class="media-body">
+                    <h5 class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                            asp-controller="NewsView" asp-route-slug="@newsLately.Slug">@newsLately.Title</a>
+                    </h5>
+                    @newsLately.Content.Substring(300, 400);
+                </div>
+                <div style="text-align: right; font-style: italic; color: rgb(128, 126, 126);">
+                    <i> @String.Format("{0:dd/MM/yyyy}", newsLately.Created)
+                    </i>|<strong>@newsLately.AuthorModel.AuthorName</strong>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div>
+        <h2>XEM NHIỀU NHẤT</h2>
+        <hr>
+        <ul style="display:flex;list-style: none;">
+            @foreach (var news in topView)
+            {
+                <li style="padding:20px">
+                    <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                        <div class="media  mb-3 pb-3">
+                            <img style="width:100%; height:200px" class=" h-30" src="@news.Photo">
+                            <div class="media-body">
+                                <strong>
+                                    <h class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                                            asp-controller="NewsView" asp-route-slug="@news.Slug">@news.Title</a>
+                                    </h>
+                                </strong>
+                            </div>
+
+                        </div>
+                    </a>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+
+
+    <div>
+        <h2>HOẠT ĐỘNG</h2>
+        <hr>
+        <ul style="display:flex;list-style: none;">
+            @foreach (var news in secondNews)
+            {
+                <li style="padding:20px">
+                    <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                        <div class="media  mb-3 pb-3">
+                            <img style="width:100%; height:200px" class=" h-30" src="@news.Photo">
+                            <div class="media-body">
+                                <strong>
+                                    <h class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                                            asp-controller="NewsView" asp-route-slug="@news.Slug">@news.Title</a>
+                                    </h>
+                                </strong>
+                            </div>
+
+                        </div>
+                    </a>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+    <div>
+        <h2>ĐƠN VỊ LIÊN KẾT</h2>
+        <hr>
+        <ul style="display:flex;list-style: none;">
+            @foreach (var news in partner)
+            {
+                <li style="padding:20px">
+                    <div class="media  mb-3 pb-3">
+                        <img style="width:100%; height:150px" class=" h-30" src="@news.Logo">
+                        <div class="media-body">
+                        </div>
+                    </div>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+}
+else
+{
+    <h2>@ViewData["Title"]</h2>
+    <hr>
+    <div>
+        <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@newsLatelyByCate.Slug">
+            <div class="media  mb-3 pb-3">
+                <img style="width:100%; height:500px" class=" h-30" src="@newsLatelyByCate.Photo">
+                <div class="media-body">
+                    <h5 class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                            asp-controller="NewsView" asp-route-slug="@newsLatelyByCate.Slug">@newsLatelyByCate.Title</a>
+                    </h5>
+                    @newsLatelyByCate.Content.Substring(300, 400);
+                </div>
+                <div style="text-align: right; font-style: italic; color: rgb(128, 126, 126);">
+                    <i> @String.Format("{0:dd/MM/yyyy}", newsLatelyByCate.Created)
+                    </i>|<strong>@newsLatelyByCate.AuthorModel.AuthorName</strong>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div>
+        <ul style="display:flex;list-style: none;">
+            @foreach (var news in topviewByCate)
+            {
+                <li style="padding:20px">
+                    <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                        <div class="media  mb-3 pb-3">
+                            <img style="width:100%; height:200px" class=" h-30" src="@news.Photo">
+                            <div class="media-body">
+                                <strong>
+                                    <h class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                                            asp-controller="NewsView" asp-route-slug="@news.Slug">@news.Title</a>
+                                    </h>
+                                </strong>
+                            </div>
+
+                        </div>
+                    </a>
+                </li>
+            }
+
+        </ul>
+
+    </div>
+    <div>
+        <ul>
+            @foreach (var news in newsInPage)
+            {
+                <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                    <div class="media border-bottom mb-3 pb-3">
+                        <img class="mr-3 w-25" src="@news.Photo">
+                        <div class="media-body">
+                            <h5 class="mt-0"><a style="text-decoration: none; color:black" asp-action="Detail"
+                                    asp-controller="NewsView" asp-route-slug="@news.Slug">@news.Title</a>
+                            </h5>
+                            @news.Content.Substring(300, 400);
+                        </div>
+                        <div style="text-align: right;font-style: italic;
+    color: rgb(128, 126, 126);">
+                            <i> @String.Format("{0:dd/MM/yyyy}", news.Created)</i>
+                        </div>
+                    </div>
+                </a>
+            }
+        </ul>
+        <div style="text-align: center;">
+            <partial name="_Paging" model="@ViewBag.pagingModel" />
+        </div>
+    </div>
+}
+
+@section Sidebar {
+    @await Component.InvokeAsync("TopNewsSidebar")
+    @await Component.InvokeAsync("SocialSidebar")
+
+}

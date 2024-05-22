@@ -9,10 +9,11 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Delete" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <p>Bạn có chắc chắn xóa <strong>@Model.Name</strong></p>    
-            <div class="form-group">          
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="@Model.Id" />
+            @* <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+            <p>Bạn có chắc chắn xóa <strong>@Model.Name</strong></p>
+            <div class="form-group">
                 <input type="submit" value="Đồng ý" class="btn btn-danger" />
                 <a class="btn btn-primary" asp-action="Index">Danh sách các role</a>
             </div>
@@ -20,5 +21,7 @@
     </div>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

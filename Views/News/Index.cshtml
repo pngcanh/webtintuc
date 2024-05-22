@@ -1,33 +1,36 @@
-    @model IEnumerable<webtintuc.Models.NewsModel>
+@model IEnumerable<webtintuc.Models.NewsModel>
 
 @{
     ViewData["Title"] = "Quản lý bài viết";
-    int i=0;
+    int i = 0;
 }
 
 <h1>Danh sách bài viết</h1>
 
 <p>
-    <a asp-action="Create"class="btn btn-primary " >Thêm bài viết mới</a>
+    <a asp-action="Create" class="btn btn-primary ">Thêm bài viết mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-               STT
+                STT
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Created)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryModel)
+                @Html.DisplayNameFor(model => model.Photo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryModel)
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorID)
             </th>
             <th>
                 Tùy chọn
@@ -36,30 +39,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @(++i)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.NewsID">@Html.DisplayFor(modelItem => item.Title)</a>
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryModel.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorModel.AuthorName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NewsID">Chỉnh sửa</a> |
-                @* <a asp-action="Details" asp-route-id="@item.NewsID">Xem</a> | *@
-                <a asp-action="Delete" asp-route-id="@item.NewsID">Xóa</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(++i)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.NewsID">@Html.DisplayFor(modelItem => item.Title)</a>
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    <img src="@item.Photo" alt="@item.Photo" style="width:100px;height:100px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryModel.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorModel.AuthorName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.NewsID">Chỉnh sửa</a> |
+                    @* <a asp-action="Details" asp-route-id="@item.NewsID">Xem</a> | *@
+                    <a asp-action="Delete" asp-route-id="@item.NewsID">Xóa</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

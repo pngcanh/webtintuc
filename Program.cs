@@ -1,6 +1,8 @@
+using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using webtintuc.Models;
 using webtintuc.Services;
 
@@ -75,6 +77,14 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+// app.UseStaticFiles(new StaticFileOptions()
+// {
+//     FileProvider = new PhysicalFileProvider(
+//         Path.Combine(Directory.GetCurrentDirectory(), "Uploads")
+//     ),
+//     RequestPath = "/contents"
+// });
+
 app.UseRouting();
 
 app.UseAuthentication();
@@ -83,6 +93,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=AdminCP}/{action=Index}/{id?}");
+    pattern: "/{controller=NewsView}/{action=Index}");
 
 app.Run();

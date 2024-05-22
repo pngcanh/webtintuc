@@ -1,0 +1,52 @@
+@model IEnumerable<webtintuc.Models.PartnerModel>;
+@{
+    ViewData["Title"] = "Danh sách đối tác";
+    int i = 0;
+}
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Thêm đối tác</a>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Logo)
+            </th>
+
+            <th>
+                Tùy chọn
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(++i)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+
+                <td>
+                    <img src="@item.Logo" alt="@item.Logo" style="width:100px;height:100px;" />
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Chỉnh sửa</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

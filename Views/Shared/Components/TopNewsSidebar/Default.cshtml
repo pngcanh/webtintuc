@@ -1,0 +1,59 @@
+@{
+    var latelyNews = ViewBag.latelyNews;
+    var oldNews = ViewBag.oldNews;
+}
+<div>
+    <div>
+        <h4>MỚI NHẤT</h4>
+
+        <ul class="list-group   ">
+            @foreach (var news in latelyNews)
+            {
+                <li class="list-group-item">
+                    <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <img src="@news.Photo" class="media-object mr-3 w-25" style="width:60px">
+                            </div>
+                            <div class="media-body">
+                                <h5 class="mt-0"><a style="text-decoration: none; color:black ; font-size:18px;"
+                                        asp-action="Detail" asp-controller="NewsView"
+                                        asp-route-slug="@news.Slug">@news.Title</a>
+                                </h5>
+                                <p style="text-align: right; font-style: italic;color: rgb(128, 126, 126);">
+                                    @news.CategoryModel.CategoryName
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div style="padding-top:20px; ">
+        <h4>CŨ NHẤT</h4>
+        <ul class="list-group   ">
+            @foreach (var news in oldNews)
+            {
+                <li class="list-group-item">
+                    <a asp-action="Detail" asp-controller="NewsView" asp-route-slug="@news.Slug">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <img src="@news.Photo" class="media-object mr-3 w-25" style="width:60px">
+                            </div>
+                            <div class="media-body">
+                                <h5 class="mt-0"><a style="text-decoration: none; color:black ; font-size:18px;"
+                                        asp-action="Detail" asp-controller="NewsView"
+                                        asp-route-slug="@news.Slug">@news.Title</a>
+                                </h5>
+                                <p style="text-align: right; font-style: italic;color: rgb(128, 126, 126);">
+                                    @news.CategoryModel.CategoryName
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

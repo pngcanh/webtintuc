@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using webtintuc.Models;
 
 namespace webtintuc.Blog.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ContactController : Controller
     {
         private readonly BlogDbContext _context;
@@ -17,14 +19,17 @@ namespace webtintuc.Blog.Controllers
         {
             _context = context;
         }
-
+        [TempData]
+        public string StatusMessage { set; get; }
         // GET: Authors
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.contact.ToListAsync());
         }
 
         // GET: Authors/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,6 +48,7 @@ namespace webtintuc.Blog.Controllers
         }
 
         // GET: Authors/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -52,6 +58,7 @@ namespace webtintuc.Blog.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Email,Title,Content")] ContactModel contactModel)
         {
@@ -59,61 +66,62 @@ namespace webtintuc.Blog.Controllers
             {
                 _context.Add(contactModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                StatusMessage = "Bạn đã gửi thông tin thành công. Cảm ơn bạn đã liên hệ với  chúng tôi!";
+                return RedirectToAction("Index", "NewsView");
             }
             return View(contactModel);
         }
 
         // GET: Authors/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        // public async Task<IActionResult> Edit(int? id)
+        // {
+        //     if (id == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            var contactModel = await _context.contact.FindAsync(id);
-            if (contactModel == null)
-            {
-                return NotFound();
-            }
-            return View(contactModel);
-        }
+        //     var contactModel = await _context.contact.FindAsync(id);
+        //     if (contactModel == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return View(contactModel);
+        // }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Email,Title,Content")] ContactModel contactModel)
-        {
-            if (id != contactModel.ID)
-            {
-                return NotFound();
-            }
+        // // POST: Authors/Edit/5
+        // // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Edit(int id, [Bind("Name,Email,Title,Content")] ContactModel contactModel)
+        // {
+        //     if (id != contactModel.ID)
+        //     {
+        //         return NotFound();
+        //     }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(contactModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AuthorsModleExists(contactModel.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(contactModel);
-        }
+        //     if (ModelState.IsValid)
+        //     {
+        //         try
+        //         {
+        //             _context.Update(contactModel);
+        //             await _context.SaveChangesAsync();
+        //         }
+        //         catch (DbUpdateConcurrencyException)
+        //         {
+        //             if (!AuthorsModleExists(contactModel.ID))
+        //             {
+        //                 return NotFound();
+        //             }
+        //             else
+        //             {
+        //                 throw;
+        //             }
+        //         }
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     return View(contactModel);
+        // }
 
         // GET: Authors/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -132,7 +140,6 @@ namespace webtintuc.Blog.Controllers
 
             return View(authorsModle);
         }
-
         // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

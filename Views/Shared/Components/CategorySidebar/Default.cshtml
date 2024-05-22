@@ -1,0 +1,53 @@
+@model List<CategoryModel>
+<style>
+    .CategorySidebar {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+
+        ul {
+            list-style: none;
+            display: flex;
+        }
+
+        li {
+            &:hover {
+                background-color: rgb(233, 231, 231);
+            }
+
+            &.cssActive {
+                color: red;
+            }
+        }
+
+        a {
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+        }
+</style>
+
+<div class="CategorySidebar">
+    @* <h3>CÁC CHUYÊN MỤC</h3> *@
+    <ul>
+        <li>
+            <a class=" nav-link text-dark" asp-area="" asp-controller="NewsView" asp-action="Index"
+                asp-route-slugCate="">Trang chủ</a>
+        </li>
+        @foreach (var cate in Model)
+        {
+
+            <li class="cssActive">
+                <a class=" nav-link text-dark" asp-area="" asp-controller="NewsView" asp-action="Index"
+                    asp-route-slugCate="@cate.Slug">@cate.CategoryName</a>
+            </li>
+        }
+        <li style="padding-left:60px;">
+            <form asp-controller="NewsView" asp-action="Search" method="get">
+                <p>
+                    <input type="text" name="searchString" />
+                    <input type="submit" value="Search" />
+                </p>
+            </form>
+        </li>
+    </ul>
+</div>

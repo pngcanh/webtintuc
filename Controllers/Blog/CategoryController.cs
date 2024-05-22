@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using webtintuc.Helper;
 using webtintuc.Models;
 
 namespace webtintuc.Blog.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
         private readonly BlogDbContext _context;
@@ -52,8 +55,12 @@ namespace webtintuc.Blog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryID,CategoryName,Descriptions")] CategoryModel categoryModel)
+        public async Task<IActionResult> Create([Bind("CategoryID, Slug,CategoryName,Descriptions")] CategoryModel categoryModel)
         {
+            if (categoryModel.Slug == null)
+            {
+                categoryModel.Slug = WebUtilities.GenerateSlug(categoryModel.CategoryName);
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(categoryModel);
@@ -82,7 +89,7 @@ namespace webtintuc.Blog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,CategoryName,Descriptions")] CategoryModel categoryModel)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,Slug,CategoryName,Descriptions")] CategoryModel categoryModel)
         {
             if (id != categoryModel.CategoryID)
             {

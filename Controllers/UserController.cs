@@ -9,7 +9,7 @@ using webtintuc.User.Models;
 
 namespace webtintuc.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
